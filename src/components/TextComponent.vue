@@ -24,10 +24,8 @@ onMounted(() => {
 </script>
 
 <template>
-
   <div>
-    <h1 v-html="id"></h1>
-    <p v-html="text"></p>
+    <p v-html="text" class="font-mono text-gray-100"></p>
   </div>
 </template>
 
