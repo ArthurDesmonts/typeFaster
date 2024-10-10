@@ -1,10 +1,20 @@
 <script setup>
+import { ref } from 'vue';
 
+const isMenuVisible = ref(true);
+
+const toggleMenu = () => {
+  isMenuVisible.value = !isMenuVisible.value;
+};
 </script>
 
 <template>
   <div class="flex flex-col min-h-screen w-auto max-w-max drop-shadow-4xl border-gray-500 bg-gray-800 overflow-hidden break-words">
-    <header class="flex flex-col gap-8 ml-4 my-4 mt-10">
+    <button @click="toggleMenu" class="self-end m-4 text-yellow-500">
+      <span v-if="isMenuVisible" class="font-bold text-2xl mx-auto">◀</span>
+      <span v-else class="font-bold text-4xl">☰</span>
+    </button>
+    <header v-if="isMenuVisible" class="flex flex-col gap-8 ml-4 my-4 mt-5">
       <RouterLink to="/" class="flex justify-center w-full">
         <span class="relative font-mono text-yellow-500 pr-6 text-xl font-extrabold text-center hover:text-yellow-300
          before:absolute before:left-0 before:bottom-0 before:h-1 before:w-full before:bg-yellow-300 before:transform
@@ -26,7 +36,7 @@
          before:scale-x-0 hover:before:scale-x-125 before:origin-left before:transition-transform before:duration-300">Profil</span>
       </RouterLink>
     </header>
-    <div class="mt-auto mx-auto my-4">
+    <div class="mt-auto mx-auto my-4 hover:scale-125 hover:duration-300">
       <a href="https://github.com/ArthurDesmonts">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="currentColor" class="text-yellow-500">
           <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.11.82-.26.82-.577
