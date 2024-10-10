@@ -45,7 +45,9 @@ onMounted(() => {
       </div>
     </div>
     <div class="flex justify-center w-full mt-5">
-      <input type="text" class="rounded bg-gray-600 text-orange-600 font-bold" placeholder="Commencer a taper">
+      <input type="text" class="rounded bg-gray-600 text-center text-orange-600 font-bold" placeholder="Commencer à taper">
+    </div>
+    <div class="flex justify-center w-full">
       <p class="text-2xl text-gray-100 mx-4">{{wpm}} wpm</p>
     </div>
   </div>
