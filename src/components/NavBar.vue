@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 
-const isMenuVisible = ref(true);
+const isMenuVisible = ref(false);
 
 const toggleMenu = () => {
   isMenuVisible.value = !isMenuVisible.value;
@@ -14,28 +14,39 @@ const toggleMenu = () => {
       <span v-if="isMenuVisible" class="font-bold text-2xl mx-auto">◀</span>
       <span v-else class="font-bold text-4xl">☰</span>
     </button>
-    <header v-if="isMenuVisible" class="flex flex-col gap-8 ml-4 my-4 mt-5">
-      <RouterLink to="/" class="flex justify-center w-full">
-        <span class="relative font-mono text-yellow-500 pr-6 text-xl font-extrabold text-center hover:text-yellow-300
-         before:absolute before:left-0 before:bottom-0 before:h-1 before:w-full before:bg-yellow-300 before:transform
-         before:scale-x-0 hover:before:scale-x-125 before:origin-left before:transition-transform before:duration-300">Accueil</span>
-      </RouterLink>
-      <RouterLink to="/leaderboard" class="flex justify-end w-full">
-        <span class="relative font-mono text-yellow-500 pr-6 text-xl font-extrabold text-center hover:text-yellow-300
-         before:absolute before:left-0 before:bottom-0 before:h-1 before:w-full before:bg-yellow-300 before:transform
-         before:scale-x-0 hover:before:scale-x-125 before:origin-left before:transition-transform before:duration-300">Classement</span>
-      </RouterLink>
-      <RouterLink to="/message" class="flex justify-end w-full">
-        <span class="relative font-mono text-yellow-500 pr-6 text-xl font-extrabold text-center hover:text-yellow-300
-         before:absolute before:left-0 before:bottom-0 before:h-1 before:w-full before:bg-yellow-300 before:transform
-         before:scale-x-0 hover:before:scale-x-125 before:origin-left before:transition-transform before:duration-300">Messagerie</span>
-      </RouterLink>
-      <RouterLink to="/profil" class="flex justify-end w-full">
-        <span class="relative font-mono text-yellow-500 pr-6 text-xl font-extrabold text-center hover:text-yellow-300
-         before:absolute before:left-0 before:bottom-0 before:h-1 before:w-full before:bg-yellow-300 before:transform
-         before:scale-x-0 hover:before:scale-x-125 before:origin-left before:transition-transform before:duration-300">Profil</span>
-      </RouterLink>
-    </header>
+    <transition
+        name="menu-transition"
+        enter-active-class="transition ease-out duration-500 transform"
+        leave-active-class="transition ease-in duration-500 transform"
+        enter-from-class="-translate-x-full opacity-0"
+        enter-to-class="translate-x-0 opacity-100"
+        leave-from-class="translate-x-0 opacity-100"
+        leave-to-class="-translate-x-full opacity-0"
+    >
+      <header v-if="isMenuVisible" class="flex flex-col gap-8 ml-4 my-4 mt-5">
+        <RouterLink to="/" class="flex justify-center w-full">
+          <span class="relative font-mono text-yellow-500 pr-6 text-xl font-extrabold text-center hover:text-yellow-300
+           before:absolute before:left-0 before:bottom-0 before:h-1 before:w-full before:bg-yellow-300 before:transform
+           before:scale-x-0 hover:before:scale-x-125 before:origin-left before:transition-transform before:duration-300">Accueil</span>
+        </RouterLink>
+        <RouterLink to="/leaderboard" class="flex justify-end w-full">
+          <span class="relative font-mono text-yellow-500 pr-6 text-xl font-extrabold text-center hover:text-yellow-300
+           before:absolute before:left-0 before:bottom-0 before:h-1 before:w-full before:bg-yellow-300 before:transform
+           before:scale-x-0 hover:before:scale-x-125 before:origin-left before:transition-transform before:duration-300">Classement</span>
+        </RouterLink>
+        <RouterLink to="/message" class="flex justify-end w-full">
+          <span class="relative font-mono text-yellow-500 pr-6 text-xl font-extrabold text-center hover:text-yellow-300
+           before:absolute before:left-0 before:bottom-0 before:h-1 before:w-full before:bg-yellow-300 before:transform
+           before:scale-x-0 hover:before:scale-x-125 before:origin-left before:transition-transform before:duration-300">Messagerie</span>
+        </RouterLink>
+        <RouterLink to="/profil" class="flex justify-end w-full">
+          <span class="relative font-mono text-yellow-500 pr-6 text-xl font-extrabold text-center hover:text-yellow-300
+           before:absolute before:left-0 before:bottom-0 before:h-1 before:w-full before:bg-yellow-300 before:transform
+           before:scale-x-0 hover:before:scale-x-125 before:origin-left before:transition-transform before:duration-300">Profil</span>
+        </RouterLink>
+      </header>
+    </transition>
+
     <div class="mt-auto mx-auto my-4 hover:scale-125 hover:duration-300">
       <a href="https://github.com/ArthurDesmonts">
         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30" fill="currentColor" class="text-yellow-500">
