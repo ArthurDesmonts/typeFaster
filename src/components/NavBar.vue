@@ -4,18 +4,18 @@
 
 <template>
   <div class="flex flex-col min-h-screen w-auto max-w-max drop-shadow-4xl border-gray-500 bg-gray-800">
-    <header class="flex flex-col gap-4 mx-4 my-4 mt-10">
-      <RouterLink to="/" class="flex w-full">
-        <span class="font-mono text-yellow-500 px-2 text-xl font-extrabold w-full text-center bg-cover bg-gray-900 rounded border-gray-50 ">Accueil</span>
+    <header class="flex flex-col gap-8 ml-6 my-4 mt-10">
+      <RouterLink to="/" class="flex justify-end w-full">
+        <span class="font-mono text-yellow-500 pr-6 text-xl font-extrabold text-center border-b-4 border-gray-700 ">Accueil</span>
       </RouterLink>
-      <RouterLink to="/leaderboard" class="flex w-full">
-        <span class="font-mono text-yellow-500 px-2 text-xl font-extrabold w-full text-center bg-cover bg-gray-900 rounded border-gray-50 ">Classement</span>
+      <RouterLink to="/leaderboard" class="flex justify-end w-full">
+        <span class="font-mono text-yellow-500 pr-6 text-xl font-extrabold text-center border-b-4 border-gray-700 ">Classement</span>
       </RouterLink>
-      <RouterLink to="/message" class="flex w-full">
-        <span class="font-mono text-yellow-500 px-2 text-xl font-extrabold w-full text-center bg-cover bg-gray-900 rounded border-gray-50 ">Messagerie</span>
+      <RouterLink to="/message" class="flex justify-end w-full">
+        <span class="font-mono text-yellow-500 pr-6 text-xl font-extrabold text-center border-b-4 border-gray-700 ">Messagerie</span>
       </RouterLink>
-      <RouterLink to="/profil" class="flex w-full">
-        <span class="font-mono text-yellow-500 px-2 text-xl font-extrabold w-full text-center bg-cover bg-gray-900 rounded border-gray-50 ">Profil</span>
+      <RouterLink to="/profil" class="flex justify-end w-full">
+        <span class="font-mono text-yellow-500 pr-6 text-xl font-extrabold text-center border-b-4 border-gray-700 ">Profil</span>
       </RouterLink>
     </header>
     <div class="mt-auto mx-auto my-4">
