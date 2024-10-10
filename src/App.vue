@@ -6,9 +6,11 @@ import NavBar from "@/components/NavBar.vue";
 </script>
 
 <template>
-  <NavBar></NavBar>
-  <div>
-    <RouterView></RouterView>
+  <div class="flex">
+    <NavBar></NavBar>
+    <div class="flex-grow">
+      <RouterView></RouterView>
+    </div>
   </div>
 </template>
 
