@@ -25,4 +25,5 @@ jobs:
       - name: Deploy to GitHub Pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY_URL: https://${{ secrets.GITHUB_TOKEN }}@github.com/ArthurDesmonts/typeFaster.git
         run: npm run deploy
