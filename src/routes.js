@@ -6,9 +6,9 @@ import Home from "@/pages/Home.vue";
 import NotFoundPage from "@/pages/NotFoundPage.vue";
 
 export const routes = [
-    {path: '/typeFaster/', component: Home},
-    {path: '/typeFaster/leaderboard', component: LeaderBoard},
-    {path: '/typeFaster/message', component: Messages},
-    {path: '/typeFaster/profil', component: Profil},
-    {path: '/typeFaster/:pathMatch(.*)*', component: NotFoundPage}
+    {path: '/', component: Home},
+    {path: '/leaderboard', component: LeaderBoard},
+    {path: '/message', component: Messages},
+    {path: '/profil', component: Profil},
+    {path: '/:pathMatch(.*)*', component: NotFoundPage}
 ];
