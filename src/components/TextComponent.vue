@@ -25,7 +25,7 @@ const summary = ref(false);
 // Function to get text from server
 async function getTextFromServer() {
   try {
-    const response = await axios.get("http://localhost:5500/get");
+    const response = await axios.get("https://api-rest-text-game.vercel.app/get");
     rawText.value = receiverText(response.data);
     id.value = receiverIDText(response.data);
   } catch (error) {
