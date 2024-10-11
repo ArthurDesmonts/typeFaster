@@ -27,12 +27,24 @@ function textToTab(text) {
     return text.split(' ');
 }
 
-function pushWord(text, restrictedText, word) {
-    //TODO: implement this function
+/**
+ * This function receives a text and a word and removes the word from the text.
+ * @param text
+ */
+function pushWord(text) {
+    const tab = textToTab(text);
+    tab.splice(0, 1);
+    return tab.join(' ');
 }
 
 function DisplayText(array) {
     return array.join(' ');
 }
+
+
+//test
+let test = 'Lorem ipsum dolor';
+test = pushWord(test,'Lorem');
+
 
 export { initializer, textToTab, pushWord, DisplayText, filterText };
