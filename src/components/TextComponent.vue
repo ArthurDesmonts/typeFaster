@@ -1,15 +1,20 @@
 <script setup>
-import {onMounted, ref} from "vue";
+import {onMounted, onUnmounted, ref} from "vue";
 import axios from "axios";
 import {receiverText, receiverIDText} from "@/utils/objectPreTreatmentReceiver.js";
-import {initializer, pushWord} from "@/utils/TextTreatment.js";
+import {initializer, pushWord, textToTab} from "@/utils/TextTreatment.js";
 
-const rawText = ref("");
+let rawText = ref("");
 const textDisplayed = ref("");
 const id = ref(0);
+const textArray = ref([]);
+const currentWordToType = ref("");
+const currentWordIndex = ref(0);
 
 const timer = ref(30);
 const wpm = ref(0);
+
+const input = ref(null);
 
 // Function to get text from server
 async function getTextFromServer() {
@@ -28,11 +33,47 @@ async function updateText() {
   if (rawText.value) {
     textDisplayed.value = initializer(rawText.value, 50);
   }
+  textArray.value = textToTab(textDisplayed.value);
+  currentWordToType.value = textArray.value[currentWordIndex.value];
 }
 
+const typing = () => {
+  if (input.value.value === currentWordToType.value) {
+    currentWordIndex.value++;
+    currentWordToType.value = textArray.value[currentWordIndex.value];
+    console.log(input.value.value + " : OK !");
+    input.value.value = "";
+    window.addEventListener("keyup", handleKeyup);
+  }else{
+    console.log(input.value.value + " : NOPE !");
+    window.removeEventListener("keyup", handleKeyup);
+  }
+};
+
+const handleKeydown = (event) => {
+  if (event.keyCode === 32) { //spacebar
+    typing();
+  }
+};
+
+const handleKeyup = (event) => {
+  if (event.keyCode === 32) { //spacebar
+    input.value.value = "";
+  }
+};
+
 onMounted(() => {
+  input.value = document.getElementById("input");
   updateText();
+  window.addEventListener("keydown", handleKeydown);
+  window.addEventListener("keyup", handleKeyup);
 });
+
+onUnmounted(() => {
+  window.removeEventListener("keydown", handleKeydown);
+  window.removeEventListener("keyup", handleKeyup);
+});
+
 </script>
 
 <template>
@@ -45,13 +86,10 @@ onMounted(() => {
       </div>
     </div>
     <div class="flex justify-center w-full mt-5">
-      <input type="text" class="rounded text-center text-customOrange-600 font-bold" placeholder="Commencer à taper">
+      <input id="input" type="text" autocomplete="off" class="outline-0 caret-transparent rounded text-center text-customOrange-600 font-bold" placeholder="Commencer à taper">
     </div>
     <div class="flex justify-center w-full">
       <p class="text-2xl text-customBlue-100 mx-4">{{wpm}} wpm</p>
     </div>
   </div>
 </template>
-
-<style scoped>
-</style>
