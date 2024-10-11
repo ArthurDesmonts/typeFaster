@@ -15,6 +15,10 @@ export default {
           500: 'color(display-p3 0.996 0.8 0.004)',
           600: 'color(display-p3 1 0.77 0.26)',
         },
+        customOrange: {
+            500: 'color(display-p3 0.98 0.51 0.23)',
+            600: 'color(display-p3 0.9 0.45 0.2)',
+        },
         customBlue: {
           900: 'color(display-p3 0.057 0.081 0.122)',
           800: 'color(display-p3 0.078 0.154 0.27)',
