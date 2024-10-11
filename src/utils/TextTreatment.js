@@ -8,12 +8,10 @@
 
 function initializer(tab, maxWords) {
     tab = filterText(textToTab(tab));  // Conversion en tableau de mots et filtrage
-    let newText = '';
-    let i = 0;
+    let newText = "";
     let wordCount = 0;  // Compteur de mots
-    while (wordCount < maxWords && i < tab.length) {  // Limiter par nombre de mots
-        newText += tab[i] + ' ';
-        i++;
+    while (wordCount < maxWords && wordCount < tab.length) {  // Limiter par nombre de mots
+        newText += tab[wordCount] + ' ';
         wordCount++;  // Incrémenter le compteur de mots
     }
     newText.replaceAll('  ', ' ');
@@ -42,10 +40,14 @@ function DisplayText(array) {
     return array.join(' ');
 }
 
+function cleanString(text) {
+    return text.replace(/[^a-zA-Z]/g, '');
+}
+
 
 //test
 let test = 'Lorem ipsum dolor';
 test = pushWord(test,'Lorem');
 
 
-export { initializer, textToTab, pushWord, DisplayText, filterText };
+export { initializer, textToTab, pushWord, DisplayText, filterText, cleanString };

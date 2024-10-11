@@ -2,7 +2,7 @@
 import { onMounted, onUnmounted, ref } from "vue";
 import axios from "axios";
 import { receiverText, receiverIDText } from "@/utils/objectPreTreatmentReceiver.js";
-import { initializer, pushWord, textToTab } from "@/utils/TextTreatment.js";
+import { initializer, pushWord, textToTab, cleanString } from "@/utils/TextTreatment.js";
 import { countDownFrom } from "@/utils/TimeHandler.js";
 
 let rawText = ref("");
@@ -38,17 +38,23 @@ async function updateText() {
   await getTextFromServer();
   if (rawText.value) {
     textDisplayed.value = initializer(rawText.value, 50);
+    textArray.value = textToTab(textDisplayed.value);
   }
-  textArray.value = textToTab(textDisplayed.value);
+  //reset the game
+  currentWordIndex.value = 0;
   currentWordToType.value = textArray.value[currentWordIndex.value];
   input.value.disabled = false;
+  wpm.value = 0;
+  typedWordsLenght.value = 0;
+  summary.value = false;
+
   window.addEventListener("keydown", handleKeydown);
   window.addEventListener("keydown", handleStartGame, { once: true });
   timer.value = 30;
 }
 
 const typing = () => {
-  if (input.value.value === currentWordToType.value) {
+  if (cleanString(input.value.value) === currentWordToType.value) {
     //add 1 to the wpm
     currentWordIndex.value++;
     currentWordToType.value = textArray.value[currentWordIndex.value];
@@ -63,7 +69,7 @@ const typing = () => {
     input.value.value = "";
     window.addEventListener("keyup", handleKeyup);
   } else {
-    console.log(input.value.value + " : NOPE !");
+    console.log(input.value.value + " != "+ currentWordToType.value + " : NOPE !");
     window.removeEventListener("keyup", handleKeyup);
   }
 };
@@ -87,7 +93,8 @@ function blockTypingSignal() {
 }
 
 const handleKeydown = (event) => {
-  if (event.keyCode === 32) { // spacebar
+  if (event.keyCode === 32) {// spacebar
+    currentWordToType.value = cleanString(currentWordToType.value);
     typing();
   }
 };
