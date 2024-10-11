@@ -3,6 +3,7 @@ import { onMounted, onUnmounted, ref } from "vue";
 import axios from "axios";
 import { receiverText, receiverIDText } from "@/utils/objectPreTreatmentReceiver.js";
 import { initializer, pushWord, textToTab } from "@/utils/TextTreatment.js";
+import { countDownFrom } from "@/utils/TimeHandler.js";
 
 let rawText = ref("");
 let textDisplayed = ref("");
@@ -37,6 +38,10 @@ async function updateText() {
   }
   textArray.value = textToTab(textDisplayed.value);
   currentWordToType.value = textArray.value[currentWordIndex.value];
+  input.value.disabled = false;
+  window.addEventListener("keydown", handleKeydown);
+  window.addEventListener("keydown", handleStartGame, { once: true });
+  timer.value = 30;
 }
 
 const typing = () => {
@@ -59,6 +64,22 @@ const typing = () => {
   }
 };
 
+const countDown = () => {
+  countDownFrom(timer.value, (remainingSeconds) => {
+    timer.value = remainingSeconds;
+    if (remainingSeconds === 0) {
+      blockTypingSignal();
+    }
+  });
+}
+
+function blockTypingSignal() {
+  input.value.value = "";
+  input.value.disabled = true;
+  window.removeEventListener("keydown", handleKeydown);
+  window.removeEventListener("keydown", handleStartGame);
+}
+
 const handleKeydown = (event) => {
   if (event.keyCode === 32) { // spacebar
     typing();
@@ -71,22 +92,28 @@ const handleKeyup = (event) => {
   }
 };
 
+const handleStartGame = () => {
+  countDown();
+};
+
 onMounted(() => {
   input.value = document.getElementById("input");
   updateText();
   window.addEventListener("keydown", handleKeydown);
   window.addEventListener("keyup", handleKeyup);
+  window.addEventListener("keydown", handleStartGame,  { once: true });
 });
 
 onUnmounted(() => {
   window.removeEventListener("keydown", handleKeydown);
   window.removeEventListener("keyup", handleKeyup);
+  window.removeEventListener("keydown", handleStartGame);
 });
 </script>
 
 <template>
   <div class="flex flex-col justify-center">
-    <p class="text-2xl p-4 my-4 rounded text-center text-customBlue-100">{{ timer }} s</p>
+    <p class="text-2xl p-4 my-4 rounded text-center text-customBlue-100">{{ timer }}</p>
     <div class="flex justify-center w-full">
       <button class="bg-amber-400 text-black font-bold rounded px-2 rounded-r-none" @click="updateText">&#x21bb;
       </button>

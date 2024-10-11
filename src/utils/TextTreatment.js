@@ -16,7 +16,8 @@ function initializer(tab, maxWords) {
         i++;
         wordCount++;  // Incrémenter le compteur de mots
     }
-    return newText;  // Supprimer l'espace final
+    newText.replaceAll('  ', ' ');
+    return newText.trim();
 }
 
 const filterText = (array) => {
