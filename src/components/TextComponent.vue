@@ -13,11 +13,14 @@ const textArray = ref([]);
 const currentWordToType = ref("");
 const currentWordIndex = ref(0);
 const typedWords = ref([]);
+const typedWordsLenght = ref(0);
 
 const timer = ref(30);
+const timerDefault = timer;
 const wpm = ref(0);
 
 const input = ref(null);
+const summary = ref(false);
 
 // Function to get text from server
 async function getTextFromServer() {
@@ -50,7 +53,8 @@ const typing = () => {
     currentWordIndex.value++;
     currentWordToType.value = textArray.value[currentWordIndex.value];
     //push for wpm
-    typedWords.value.push(input.value.value)
+    typedWords.value.push(input.value.value);
+    typedWordsLenght.value = typedWords.value.length;
 
     //remove the word from the input
     textDisplayed.value = pushWord(textDisplayed.value);
@@ -78,6 +82,8 @@ function blockTypingSignal() {
   input.value.disabled = true;
   window.removeEventListener("keydown", handleKeydown);
   window.removeEventListener("keydown", handleStartGame);
+  wpm.value = typedWordsLenght.value * 2;
+  summary.value = true;
 }
 
 const handleKeydown = (event) => {
@@ -127,7 +133,8 @@ onUnmounted(() => {
              placeholder="Commencer à taper">
     </div>
     <div class="flex justify-center w-full">
-      <p class="text-2xl text-customBlue-100 mx-4">{{ wpm }} wpm</p>
+      <p class="text-2xl text-customBlue-100 mx-4">{{ typedWordsLenght }} words</p>
+      <p v-if="summary" class="text-2xl text-customBlue-100 mx-4">{{ wpm }} wpm</p>
     </div>
   </div>
 </template>
