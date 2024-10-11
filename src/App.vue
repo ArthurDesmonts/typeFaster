@@ -5,7 +5,7 @@ import NavBar from "@/components/NavBar.vue";
 </script>
 
 <template>
-  <div class="flex bg-gray-700 text-gray-100">
+  <div class="flex bg-customBlue-800 text-customBlue-100">
     <NavBar></NavBar>
     <div class="flex-grow">
       <RouterView></RouterView>
