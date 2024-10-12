@@ -24,22 +24,22 @@ const toggleMenu = () => {
         leave-to-class="-translate-x-full opacity-0"
     >
       <header v-if="isMenuVisible" class="flex flex-col gap-8 ml-4 my-4 mt-5">
-        <RouterLink to="/" class="flex justify-center w-full">
+        <RouterLink to="/typeFaster/" class="flex justify-center w-full">
           <span class="relative font-mono text-customYellow-500 pr-6 text-xl font-extrabold text-center hover:text-yellow-300
            before:absolute before:left-0 before:bottom-0 before:h-1 before:w-full before:bg-yellow-300 before:transform
            before:scale-x-0 hover:before:scale-x-125 before:origin-left before:transition-transform before:duration-300">Accueil</span>
         </RouterLink>
-        <RouterLink to="/leaderboard" class="flex justify-end w-full">
+        <RouterLink to="/typeFaster/leaderboard" class="flex justify-end w-full">
           <span class="relative font-mono text-customYellow-500 pr-6 text-xl font-extrabold text-center hover:text-yellow-300
            before:absolute before:left-0 before:bottom-0 before:h-1 before:w-full before:bg-yellow-300 before:transform
            before:scale-x-0 hover:before:scale-x-125 before:origin-left before:transition-transform before:duration-300">Classement</span>
         </RouterLink>
-        <RouterLink to="/message" class="flex justify-end w-full">
+        <RouterLink to="/typeFaster/message" class="flex justify-end w-full">
           <span class="relative font-mono text-customYellow-500 pr-6 text-xl font-extrabold text-center hover:text-yellow-300
            before:absolute before:left-0 before:bottom-0 before:h-1 before:w-full before:bg-yellow-300 before:transform
            before:scale-x-0 hover:before:scale-x-125 before:origin-left before:transition-transform before:duration-300">Messagerie</span>
         </RouterLink>
-        <RouterLink to="/profil" class="flex justify-end w-full">
+        <RouterLink to="/typeFaster/profil" class="flex justify-end w-full">
           <span class="relative font-mono text-customYellow-500 pr-6 text-xl font-extrabold text-center hover:text-yellow-300
            before:absolute before:left-0 before:bottom-0 before:h-1 before:w-full before:bg-yellow-300 before:transform
            before:scale-x-0 hover:before:scale-x-125 before:origin-left before:transition-transform before:duration-300">Profil</span>
