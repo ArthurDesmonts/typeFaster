@@ -37,7 +37,7 @@ async function getTextFromServer() {
 async function updateText() {
   await getTextFromServer();
   if (rawText.value) {
-    textDisplayed.value = initializer(rawText.value, 50);
+    textDisplayed.value = initializer(rawText.value, 300);
     textArray.value = textToTab(textDisplayed.value);
   }
   //reset the game
@@ -111,6 +111,7 @@ const handleStartGame = () => {
 
 onMounted(() => {
   input.value = document.getElementById("input");
+  input.value.focus();
   updateText();
   window.addEventListener("keydown", handleKeydown);
   window.addEventListener("keyup", handleKeyup);
@@ -130,7 +131,7 @@ onUnmounted(() => {
     <div class="flex justify-center w-full">
       <button class="bg-amber-400 text-black font-bold rounded px-2 rounded-r-none" @click="updateText">&#x21bb;
       </button>
-      <div class="rounded rounded-l-none bg-gray-950 max-w-xl">
+      <div class="rounded rounded-l-none bg-gray-950 max-w-xl min-w-[600px] min-h-[250px] max-h-[250px] overflow-hidden">
         <p v-html="textDisplayed" class="font-mono text-customBlue-100 text-justify p-8"></p>
       </div>
     </div>
