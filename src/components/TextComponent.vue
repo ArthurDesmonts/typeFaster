@@ -94,11 +94,25 @@ function blockTypingSignal() {
   summary.value = true;
 }
 
-// Function to highlight text
-function highlightText(array, currentIndex) {
+// Function to highlight characters
+function highlightCharacters(array, currentIndex, input) {
   return array.map((word, index) => {
     if (index < currentIndex) {
       return `<span class="typed-word">${word}</span>`;
+    } else if (index === currentIndex) {
+      let highlightedWord = '';
+      for (let i = 0; i < word.length; i++) {
+        if (i < input.length) {
+          if (word[i] === input[i]) {
+            highlightedWord += `<span class="typed-word">${word[i]}</span>`;
+          } else {
+            highlightedWord += `<span class="wrong-char">${word[i]}</span>`;
+          }
+        } else {
+          highlightedWord += word[i];
+        }
+      }
+      return highlightedWord;
     }
     return word;
   }).join(' ');
@@ -119,7 +133,7 @@ const handleStartGame = () => {
 
 // Event handler for typing letter key
 const handleTypingLetterKey = (event) => {
-  if (event.keyCode <= 90 && event.keyCode >= 65) {
+  if (event.keyCode <= 90 && event.keyCode >= 65 && event.ctrlKey === false) {
     input.value += event.key;
   }
   if (event.keyCode === 8) {
@@ -154,14 +168,13 @@ onUnmounted(() => {
 
 <template>
   <div class="flex flex-col justify-center">
-    <p class="text-2xl p-4 my-4 rounded text-center text-customBlue-100">{{ timer }}</p>
+    <p class="text-2xl p-4 my-4 rounded text-center text-customBlue-100">{{ timer }} s</p>
     <div class="flex justify-center w-full">
       <button ref="updateButton" type="button" class="bg-amber-400 text-black font-bold rounded px-2 rounded-r-none"
               @click="updateText">&#x21bb;
       </button>
-      <div
-          class="rounded rounded-l-none bg-gray-950 max-w-xl min-w-[600px] min-h-[250px] max-h-[250px] overflow-hidden">
-        <p v-html="highlightText(textArray, currentWordIndex)"
+      <div class="rounded rounded-l-none bg-gray-950 max-w-xl min-w-[600px] min-h-[250px] max-h-[250px] overflow-hidden">
+        <p v-html="highlightCharacters(textArray, currentWordIndex, input)"
            class="font-mono text-customBlue-100 text-justify p-2"></p>
       </div>
     </div>
@@ -175,5 +188,8 @@ onUnmounted(() => {
 <style>
 .typed-word {
   color: gray;
+}
+.wrong-char {
+  color: chocolate;
 }
 </style>
