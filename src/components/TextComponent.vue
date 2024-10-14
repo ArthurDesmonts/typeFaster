@@ -112,6 +112,9 @@ function highlightCharacters(array, currentIndex, input) {
           highlightedWord += word[i];
         }
       }
+      if (input.length > word.length) {
+        highlightedWord += `<span class="wrong-char underline">${input.slice(word.length)}</span>`;
+      }
       return highlightedWord;
     }
     return word;
@@ -191,5 +194,9 @@ onUnmounted(() => {
 }
 .wrong-char {
   color: chocolate;
+}
+
+.underline {
+  text-decoration: underline;
 }
 </style>
