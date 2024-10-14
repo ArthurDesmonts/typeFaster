@@ -45,9 +45,4 @@ function cleanString(text) {
 }
 
 
-//test
-let test = 'Lorem ipsum dolor';
-test = pushWord(test,'Lorem');
-
-
 export { initializer, textToTab, pushWord, DisplayText, filterText, cleanString };
