@@ -44,8 +44,8 @@ function cleanString(text) {
     return text.replace(/[^a-zA-Z]/g, '');
 }
 
-function countWpm(array){
-    return Math.round((array.join('').length)/4.7 * 2);
+function countWpm(array, additionalChar){
+    return Math.round((array.join('').length + additionalChar)/4.7 * 2);
 }
 
 

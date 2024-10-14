@@ -90,7 +90,7 @@ function blockTypingSignal() {
   input.value = "";
   window.removeEventListener("keydown", handleSpaceBarDown);
   window.removeEventListener("keydown", handleStartGame);
-  wpm.value = countWpm(typedWords.value);
+  wpm.value = countWpm(typedWords.value, input.value);
   summary.value = true;
 }
 
