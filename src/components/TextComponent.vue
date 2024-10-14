@@ -2,7 +2,7 @@
 import { onMounted, onUnmounted, ref } from "vue";
 import axios from "axios";
 import { receiverText, receiverIDText } from "@/utils/objectPreTreatmentReceiver.js";
-import { initializer, textToTab, cleanString } from "@/utils/TextTreatment.js";
+import { initializer, textToTab, cleanString, countWpm } from "@/utils/TextTreatment.js";
 import { countDownFrom, resetCountDown } from "@/utils/TimeHandler.js";
 
 let rawText = ref("");
@@ -90,7 +90,7 @@ function blockTypingSignal() {
   input.value = "";
   window.removeEventListener("keydown", handleSpaceBarDown);
   window.removeEventListener("keydown", handleStartGame);
-  wpm.value = typedWordsLenght.value * 2;
+  wpm.value = countWpm(typedWords.value);
   summary.value = true;
 }
 
