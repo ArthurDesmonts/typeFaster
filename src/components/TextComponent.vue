@@ -1,9 +1,9 @@
 <script setup>
-import { onMounted, onUnmounted, ref } from "vue";
+import {onMounted, onUnmounted, ref} from "vue";
 import axios from "axios";
-import { receiverText, receiverIDText } from "@/utils/objectPreTreatmentReceiver.js";
-import { initializer, textToTab, cleanString, countWpm } from "@/utils/TextTreatment.js";
-import { countDownFrom, resetCountDown } from "@/utils/TimeHandler.js";
+import {receiverText, receiverIDText} from "@/utils/objectPreTreatmentReceiver.js";
+import {initializer, textToTab, cleanString, countWpm} from "@/utils/TextTreatment.js";
+import {countDownFrom, resetCountDown} from "@/utils/TimeHandler.js";
 
 let rawText = ref("");
 let textDisplayed = ref("");
@@ -55,7 +55,7 @@ async function updateText() {
   resetVariables();
 
   window.addEventListener("keydown", handleSpaceBarDown);
-  window.addEventListener("keydown", handleStartGame, { once: true });
+  window.addEventListener("keydown", handleStartGame, {once: true});
   timer.value = 30;
 
   // Remove the focus on the button
@@ -71,7 +71,7 @@ const typing = () => {
     typedWordsLenght.value = typedWords.value.length;
     input.value = "";
   } else {
-    console.log(input.value + " != "+ currentWordToType.value + " : NOPE !");
+    console.log(input.value + " != " + currentWordToType.value + " : NOPE !");
   }
 };
 
@@ -176,7 +176,8 @@ onUnmounted(() => {
       <button ref="updateButton" type="button" class="bg-amber-400 text-black font-bold rounded px-2 rounded-r-none"
               @click="updateText">&#x21bb;
       </button>
-      <div class="rounded rounded-l-none bg-gray-950 max-w-xl min-w-[600px] min-h-[250px] max-h-[250px] overflow-hidden">
+      <div
+          class="rounded rounded-l-none bg-gray-950 max-w-xl min-w-[600px] min-h-[250px] max-h-[250px] overflow-hidden">
         <p v-html="highlightCharacters(textArray, currentWordIndex, input)"
            class="font-mono text-customBlue-100 text-justify p-2"></p>
       </div>
@@ -192,6 +193,7 @@ onUnmounted(() => {
 .typed-word {
   color: gray;
 }
+
 .wrong-char {
   color: chocolate;
 }
