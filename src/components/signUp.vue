@@ -2,8 +2,10 @@
 import { useRouter } from "vue-router";
 import axios from "axios";
 import { ref } from "vue";
+import {useStore} from "vuex";
 
 const router = useRouter();
+const store = useStore();
 
 const name = ref("");
 const password = ref("");
@@ -17,7 +19,7 @@ async function postSignUp() {
         password: password.value
       });
       console.log(response.data);
-      alert(response.data.message);
+      await store.dispatch('updateUserId', response.data.userId);
       await router.push('/typeFaster/profil');
     }
   } catch (error) {
