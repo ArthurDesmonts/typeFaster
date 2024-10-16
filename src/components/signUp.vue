@@ -1,5 +1,33 @@
 <script setup>
+import { useRouter } from "vue-router";
+import axios from "axios";
+import { ref } from "vue";
 
+const router = useRouter();
+
+const name = ref("");
+const password = ref("");
+const confirmedPassword = ref("");
+
+async function postSignUp() {
+  try {
+    if(allParamsPreTraitment) {
+      const response = await axios.post("https://api-rest-text-game.vercel.app/user/signup", {
+        name: name.value,
+        password: password.value
+      });
+      console.log(response.data);
+      alert(response.data.message);
+      await router.push('/typeFaster/profil');
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function allParamsPreTraitment() {
+  return (password.value === confirmedPassword.value);
+}
 </script>
 
 <template>
@@ -7,16 +35,16 @@
     <div class="row">
       <div class="col-md-6 offset-md-3">
         <h1 class="text-center mb-1 font-bold text-customOrange-500">Inscription</h1>
-        <form>
+        <form @submit.prevent="postSignUp">
           <div class="flex flex-col gap-2">
             <div class="mb-3 mt-5">
-              <input type="text" placeholder="Pseudo" class="form-control bg-customBlue-800 rounded font-bold text-center px-2" id="name">
+              <input type="text" placeholder="Pseudo" class="form-control bg-customBlue-800 rounded font-bold text-center px-2" v-model="name">
             </div>
             <div class="mb-3">
-              <input type="password" placeholder="Mot de passe" class="form-control bg-customBlue-800 rounded font-bold text-center px-2" id="password">
+              <input type="password" placeholder="Mot de passe" class="form-control bg-customBlue-800 rounded font-bold text-center px-2" v-model="password">
             </div>
             <div class="mb-3">
-              <input type="password" placeholder="Confirmer mot de passe" class="form-control bg-customBlue-800 rounded font-bold text-center px-2" id="passwordConf">
+              <input type="password" placeholder="Confirmer mot de passe" class="form-control bg-customBlue-800 rounded font-bold text-center px-2" v-model="confirmedPassword">
             </div>
             <button type="submit" class="btn btn-primary bg-customOrange-500 rounded text-customBlue-900 p-2">S'inscrire</button>
           </div>
