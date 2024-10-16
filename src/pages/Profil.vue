@@ -1,9 +1,8 @@
 <script setup>
-import {ref} from "vue";
-import {useRouter} from "vue-router";
-
-
-const connected = ref(false);
+import { onMounted, ref, watch } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import axios from "axios";
+import { useStore } from "vuex";
 
 const pseudo = ref("");
 const dateInscription = ref("");
@@ -12,6 +11,8 @@ const recordWPM = ref("");
 const moyenneWPM = ref("");
 
 const router = useRouter();
+const route = useRoute();
+const store = useStore();
 
 const setViewSignIn = () => {
   router.push('/typeFaster/signIn');
@@ -21,6 +22,32 @@ const setViewSignUp = () => {
   router.push('/typeFaster/signUp');
 };
 
+async function fetchUserData() {
+  try {
+    if (store.state.userId !== null) {
+      const response = await axios.get(`https://api-rest-text-game.vercel.app/user/userInfo?userId=${store.state.userId}`);
+      pseudo.value = response.data.pseudo;
+      classement.value = response.data.classement;
+      recordWPM.value = response.data.recordWPM;
+      moyenneWPM.value = response.data.moyenneWPM;
+      console.log(response.data);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+onMounted(() => {
+  const queryUserId = route.query.userId;
+  if (queryUserId) {
+    store.dispatch('updateUserId', queryUserId);
+  }
+  fetchUserData();
+});
+
+watch(() => store.state.userId, () => {
+  fetchUserData();
+});
 </script>
 
 <template>
@@ -33,7 +60,7 @@ const setViewSignUp = () => {
       </h1>
     </div>
     <hr class="border-customOrange-500">
-    <div v-if="connected" class="flex flex-col gap-4">
+    <div v-if="store.state.connected" class="flex flex-col gap-4">
       <h1 class="font-bold text-customYellow-600 mt-10">{{ pseudo }}</h1>
       <h3 class="">Date d'inscription : <span class="text-red-600">{{ dateInscription }}</span></h3>
       <h3 class="">Classement : <span class="text-red-600">{{ classement }}</span></h3>
@@ -52,7 +79,3 @@ const setViewSignUp = () => {
     </div>
   </div>
 </template>
-
-<style scoped>
-
-</style>
