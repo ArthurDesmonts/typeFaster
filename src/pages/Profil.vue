@@ -22,6 +22,11 @@ const setViewSignUp = () => {
   router.push('/typeFaster/signUp');
 };
 
+const disconectUser = () => {
+  store.dispatch('logout', null);
+  router.push('/typeFaster/profil');
+};
+
 async function fetchUserData() {
   try {
     if (store.state.userId !== null) {
@@ -66,6 +71,9 @@ watch(() => store.state.userId, () => {
       <h3 class="">Classement : <span class="text-red-600">{{ classement }}</span></h3>
       <h3 class="">Record de WPM : <span class="text-red-600">{{ recordWPM }}</span></h3>
       <h3 class="">Moyenne de WPM : <span class="text-red-600">{{ moyenneWPM }}</span></h3>
+      <div class="flex flex-row gap-6 w-full justify-center">
+        <button @click="disconectUser" class="btn btn-primary bg-customOrange-500 rounded text-customBlue-900 p-2">Déconnexion</button>
+      </div>
     </div>
     <div id="connectionChoice" v-else class="w-full flex justify-center">
       <div class="flex flex-col gap-6 w-fit mt-20 rounded text-customOrange-500 bg-customBlue-900 p-6">
