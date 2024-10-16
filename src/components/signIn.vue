@@ -41,7 +41,7 @@ async function postLogin() {
                      class="form-control bg-customBlue-800 rounded font-bold text-center" v-model="password">
             </div>
             <button type="submit" class="btn btn-primary bg-customOrange-500 rounded text-customBlue-900 p-2">
-              Connection
+              Connexion
             </button>
           </div>
         </form>
