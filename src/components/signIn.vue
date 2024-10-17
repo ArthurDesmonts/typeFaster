@@ -10,6 +10,8 @@ const store = useStore();
 const name = ref("");
 const password = ref("");
 
+const messageFromServer = ref("");
+
 async function postLogin() {
   try {
     const response = await axios.post("https://api-rest-text-game.vercel.app/user/login", {
@@ -21,6 +23,11 @@ async function postLogin() {
     await router.push('/typeFaster/profil');
   } catch (error) {
     console.error(error);
+    if (error.response && error.response.data && error.response.data.message) {
+      messageFromServer.value = error.response.data.message;
+    } else {
+      messageFromServer.value = "An unexpected error occurred.";
+    }
   }
 }
 </script>
@@ -31,18 +38,20 @@ async function postLogin() {
       <div class="col-md-6 offset-md-3">
         <h1 class="text-center mb-1">Se connecter</h1>
         <form @submit.prevent="postLogin">
+          <p class="text-center text-white rounded bg-blue-400">{{messageFromServer}}</p>
           <div class="flex flex-col gap-2">
             <div class="mb-3 mt-2">
               <input type="text" placeholder="Pseudo"
-                     class="form-control bg-customBlue-800 rounded font-bold text-center" v-model="name">
+                     class="form-control bg-customBlue-800 rounded font-bold text-center w-full" v-model="name">
             </div>
             <div class="mb-3">
               <input type="password" placeholder="Mot de passe"
-                     class="form-control bg-customBlue-800 rounded font-bold text-center" v-model="password">
+                     class="form-control bg-customBlue-800 rounded font-bold text-center w-full" v-model="password">
             </div>
             <button type="submit" class="btn btn-primary bg-customOrange-500 rounded text-customBlue-900 p-2">
               Connexion
             </button>
+            <p class="text-center text-customOrange-500">Pas encore inscrit ? <router-link to="/typeFaster/signUp"><span class="text-blue-500">Inscrivez-vous</span></router-link></p>
           </div>
         </form>
       </div>

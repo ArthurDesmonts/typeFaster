@@ -11,9 +11,11 @@ const name = ref("");
 const password = ref("");
 const confirmedPassword = ref("");
 
+const messageFromServer = ref("");
+
 async function postSignUp() {
   try {
-    if(allParamsPreTraitment) {
+    if(allParamsPreTraitment()) {
       const response = await axios.post("https://api-rest-text-game.vercel.app/user/signup", {
         name: name.value,
         password: password.value
@@ -21,9 +23,16 @@ async function postSignUp() {
       console.log(response.data);
       await store.dispatch('updateUserId', response.data.userId);
       await router.push('/typeFaster/profil');
+    }else{
+      messageFromServer.value = "Mots de passes différents !";
     }
   } catch (error) {
     console.error(error);
+    if (error.response && error.response.data && error.response.data.message) {
+      messageFromServer.value = error.response.data.message;
+    } else {
+      messageFromServer.value = "An unexpected error occurred.";
+    }
   }
 }
 
@@ -38,6 +47,7 @@ function allParamsPreTraitment() {
       <div class="col-md-6 offset-md-3">
         <h1 class="text-center mb-1 font-bold text-customOrange-500">Inscription</h1>
         <form @submit.prevent="postSignUp">
+          <p class="text-center text-white rounded bg-blue-400">{{messageFromServer}}</p>
           <div class="flex flex-col gap-2">
             <div class="mb-3 mt-5">
               <input type="text" placeholder="Pseudo" class="form-control bg-customBlue-800 rounded font-bold text-center px-2" v-model="name">
