@@ -1,8 +1,8 @@
 <script setup>
 import {onMounted, onUnmounted, ref} from "vue";
 import axios from "axios";
-import {receiverText, receiverIDText} from "@/utils/objectPreTreatmentReceiver.js";
-import {initializer, textToTab, cleanString, countWpm} from "@/utils/TextTreatment.js";
+import {receiverIDText, receiverText} from "@/utils/objectPreTreatmentReceiver.js";
+import {cleanString, countWpm, initializer, textToTab} from "@/utils/TextTreatment.js";
 import {countDownFrom, resetCountDown} from "@/utils/TimeHandler.js";
 
 let rawText = ref("");

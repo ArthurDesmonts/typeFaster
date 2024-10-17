@@ -1,5 +1,4 @@
 <script setup>
-
 import TextComponent from "@/components/TextComponent.vue";
 </script>
 

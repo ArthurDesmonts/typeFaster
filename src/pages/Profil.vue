@@ -3,6 +3,7 @@ import { onMounted, ref, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import axios from "axios";
 import { useStore } from "vuex";
+import {format} from "date-fns";
 
 const pseudo = ref("");
 const dateInscription = ref("");
@@ -32,6 +33,7 @@ async function fetchUserData() {
     if (store.state.userId !== null) {
       const response = await axios.get(`https://api-rest-text-game.vercel.app/user/userInfo?userId=${store.state.userId}`);
       pseudo.value = response.data.name;
+      dateInscription.value = format(new Date(response.data.creationDate),'dd / MM / yyyy');
       classement.value = response.data.classement;
       recordWPM.value = response.data.recordWPM;
       moyenneWPM.value = response.data.moyenneWPM;
