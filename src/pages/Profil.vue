@@ -31,7 +31,7 @@ async function fetchUserData() {
   try {
     if (store.state.userId !== null) {
       const response = await axios.get(`https://api-rest-text-game.vercel.app/user/userInfo?userId=${store.state.userId}`);
-      pseudo.value = response.data.pseudo;
+      pseudo.value = response.data.name;
       classement.value = response.data.classement;
       recordWPM.value = response.data.recordWPM;
       moyenneWPM.value = response.data.moyenneWPM;
