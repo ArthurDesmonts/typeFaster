@@ -4,6 +4,8 @@ import axios from "axios";
 import {receiverIDText, receiverText} from "@/utils/objectPreTreatmentReceiver.js";
 import {cleanString, countWpm, initializer, textToTab} from "@/utils/TextTreatment.js";
 import {countDownFrom, resetCountDown} from "@/utils/TimeHandler.js";
+import {insertGameResults} from "@/utils/gameAPICalls.js";
+import {useStore} from "vuex";
 
 let rawText = ref("");
 let textDisplayed = ref("");
@@ -21,6 +23,8 @@ const wpm = ref(0);
 const input = ref("");
 const summary = ref(false);
 const updateButton = ref(null);
+
+const store = useStore();
 
 // Function to get text from server
 async function getTextFromServer() {
@@ -92,6 +96,7 @@ function blockTypingSignal() {
   window.removeEventListener("keydown", handleStartGame);
   wpm.value = countWpm(typedWords.value, input.value);
   summary.value = true;
+  insertGameResults(store.state.userId,wpm.value);
 }
 
 // Function to highlight characters
