@@ -96,7 +96,11 @@ function blockTypingSignal() {
   window.removeEventListener("keydown", handleStartGame);
   wpm.value = countWpm(typedWords.value, input.value);
   summary.value = true;
-  insertGameResults(store.state.userId,wpm.value);
+  if(store.state.userId !== null) {
+    insertGameResults(store.state.userId, wpm.value);
+  }else{
+    console.log("No user connected");
+  }
 }
 
 // Function to highlight characters
