@@ -29,17 +29,29 @@ onMounted(() => {
           </span>
       </h1>
     </div>
-    <div class="flex flex-col my-10">
-      <div class="flex justify-between">
-        <p>Rank</p>
-        <p>Pseudo</p>
-        <p>WPM</p>
-      </div>
-      <div v-for="(user,index) in classmentList" :key="user.userId" class="flex justify-between">
-        <p>{{ index + 1 }}</p>
-        <p>{{ user.user }}</p>
-        <p>{{ user.wpm }}</p>
-      </div>
+    <div class="container mb-10 mx-auto rounded overflow-hidden drop-shadow-3xl">
+      <table class="min-w-full divide-y divide-gray-800">
+        <thead class="bg-gray-950">
+        <tr>
+          <th scope="col" class="px-1 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">
+            Rank
+          </th>
+          <th scope="col" class="px-6 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">
+            Pseudo
+          </th>
+          <th scope="col" class="px-1 py-3 text-xs font-medium text-white uppercase tracking-wider text-center">
+            WPM
+          </th>
+        </tr>
+        </thead>
+        <tbody class="bg-gray-900 divide-y divide-gray-800">
+        <tr v-for="(user, index) in classmentList" :key="user.userId">
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-center font-medium text-customOrange-500">{{ index + 1 }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-customOrange-500 font-bold">{{ user.user }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-center text-customOrange-500">{{ user.wpm }}</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
