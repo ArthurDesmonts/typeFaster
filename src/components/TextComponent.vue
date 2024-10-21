@@ -1,11 +1,11 @@
 <script setup>
-import {onMounted, onUnmounted, ref} from "vue";
+import { onMounted, onUnmounted, ref } from "vue";
 import axios from "axios";
-import {receiverIDText, receiverText} from "@/utils/objectPreTreatmentReceiver.js";
-import {cleanString, countWpm, initializer, textToTab} from "@/utils/TextTreatment.js";
-import {countDownFrom, resetCountDown} from "@/utils/TimeHandler.js";
-import {insertGameResults} from "@/utils/gameAPICalls.js";
-import {useStore} from "vuex";
+import { receiverIDText, receiverText } from "@/utils/objectPreTreatmentReceiver.js";
+import { cleanString, countWpm, initializer, textToTab } from "@/utils/TextTreatment.js";
+import { countDownFrom, resetCountDown } from "@/utils/TimeHandler.js";
+import { insertGameResults } from "@/utils/gameAPICalls.js";
+import { useStore } from "vuex";
 
 let rawText = ref("");
 let textDisplayed = ref("");
@@ -23,6 +23,8 @@ const wpm = ref(0);
 const input = ref("");
 const summary = ref(false);
 const updateButton = ref(null);
+
+const isBlocked = ref(false); // Flag
 
 const store = useStore();
 
@@ -46,6 +48,8 @@ const resetVariables = () => {
   typedWords.value = [];
   summary.value = false;
   input.value = "";
+  isBlocked.value = false; // Reset the flag
+  window.addEventListener("keydown", handleTypingLetterKey);
 }
 
 // Function to update the displayed text
@@ -59,7 +63,7 @@ async function updateText() {
   resetVariables();
 
   window.addEventListener("keydown", handleSpaceBarDown);
-  window.addEventListener("keydown", handleStartGame, {once: true});
+  window.addEventListener("keydown", handleStartGame, { once: true });
   timer.value = 30;
 
   // Remove the focus on the button
@@ -91,14 +95,18 @@ const countDown = () => {
 
 // Function to block typing signal
 function blockTypingSignal() {
+  if (isBlocked.value) return;
+  isBlocked.value = true;
+
   input.value = "";
+  window.removeEventListener("keydown", handleTypingLetterKey);
   window.removeEventListener("keydown", handleSpaceBarDown);
   window.removeEventListener("keydown", handleStartGame);
   wpm.value = countWpm(typedWords.value, input.value);
   summary.value = true;
-  if(store.state.userId !== null) {
+  if (store.state.userId !== null) {
     insertGameResults(store.state.userId, wpm.value);
-  }else{
+  } else {
     console.log("No user connected");
   }
 }
@@ -166,7 +174,7 @@ onMounted(() => {
   updateText();
   window.addEventListener("keydown", handleKeyRefreshText);
   window.addEventListener("keydown", handleSpaceBarDown);
-  window.addEventListener("keydown", handleStartGame, {once: true});
+  window.addEventListener("keydown", handleStartGame, { once: true });
   window.addEventListener("keydown", handleTypingLetterKey);
 });
 
