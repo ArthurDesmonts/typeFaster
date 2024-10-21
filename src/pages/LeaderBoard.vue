@@ -21,9 +21,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex-grow container">
-    <p class="text-center">Leader board</p>
-    <div class="flex flex-col">
+  <div class="container mx-auto">
+    <div id="top-part" class="container mx-auto">
+      <h1 class="text-5xl font-extrabold justify-center uppercase text-center p-10">
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-customYellow-500 to-customOrange-500">
+            Classement général
+          </span>
+      </h1>
+    </div>
+    <div class="flex flex-col my-10">
       <div class="flex justify-between">
         <p>Rank</p>
         <p>Pseudo</p>
