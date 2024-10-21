@@ -156,8 +156,8 @@ const handleTypingLetterKey = (event) => {
 //ctrl + r to refresh text
 const handleKeyRefreshText = (event) => {
   if (event.ctrlKey && event.keyCode === 82) {
-    updateText();
     resetCountDown();
+    updateText();
   }
 };
 
