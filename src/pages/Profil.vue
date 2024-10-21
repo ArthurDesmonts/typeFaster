@@ -66,15 +66,18 @@ watch(() => store.state.userId, () => {
           </span>
       </h1>
     </div>
-    <hr class="border-customOrange-500">
-    <div v-if="store.state.connected" class="flex flex-col gap-4">
-      <h1 class="font-bold text-customYellow-600 mt-10">{{ pseudo }}</h1>
-      <h3 class="">Date d'inscription : <span class="text-red-600">{{ dateInscription }}</span></h3>
-      <h3 class="">Classement : <span class="text-red-600">{{ classement }}</span></h3>
-      <h3 class="">Record de WPM : <span class="text-red-600">{{ recordWPM }}</span></h3>
-      <h3 class="">Moyenne de WPM : <span class="text-red-600">{{ moyenneWPM }}</span></h3>
-      <div class="flex flex-row gap-6 w-full justify-center">
-        <button @click="disconectUser" class="btn btn-primary bg-customOrange-500 rounded text-customBlue-900 p-2">Déconnexion</button>
+    <div v-if="store.state.connected" class="grid grid-cols-3 gap-4 bg-gray-900 rounded p-4 border-2 border-customOrange-500">
+      <div class="flex flex-col justify-between">
+        <h1 class="font-bold text-customYellow-600 text-center">{{ pseudo }}</h1>
+        <h3 class="text-center">Date d'inscription : <span class="text-customOrange-500">{{ dateInscription }}</span></h3>
+      </div>
+      <div class="flex flex-col">
+        <h3 class="">Classement : <span class="text-customOrange-500">{{ classement }}</span></h3>
+        <h3 class="">Record de WPM : <span class="text-customOrange-500">{{ recordWPM }}</span></h3>
+        <h3 class="">Moyenne de WPM : <span class="text-customOrange-500">{{ moyenneWPM }}</span></h3>
+      </div>
+      <div class="flex justify-end">
+        <button @click="disconectUser" class="btn btn-primary h-max bg-customOrange-500 rounded text-customBlue-900 p-2 hover:bg-customOrange-600">Déconnexion</button>
       </div>
     </div>
     <div id="connectionChoice" v-else class="w-full flex justify-center">
