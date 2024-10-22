@@ -44,12 +44,21 @@ async function fetchUserData() {
   }
 }
 
+async function getClassmentIndex() {
+  try {
+    await axios.get("https://api-rest-text-game.vercel.app/get/classment");
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 onMounted(() => {
   const queryUserId = route.query.userId;
   if (queryUserId) {
     store.dispatch('updateUserId', queryUserId);
   }
   fetchUserData();
+  getClassmentIndex();
 });
 
 watch(() => store.state.userId, () => {
