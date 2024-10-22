@@ -72,9 +72,9 @@ watch(() => store.state.userId, () => {
         <h3 class="text-center">Date d'inscription : <span class="text-customOrange-500">{{ dateInscription }}</span></h3>
       </div>
       <div class="flex flex-col">
-        <h3 class="">Classement : <span class="text-customOrange-500">{{ classement }}</span></h3>
-        <h3 class="">Record de WPM : <span class="text-customOrange-500">{{ recordWPM }}</span></h3>
-        <h3 class="">Moyenne de WPM : <span class="text-customOrange-500">{{ moyenneWPM }}</span></h3>
+        <h3>Classement : <span class="text-customOrange-500">{{ classement }}</span></h3>
+        <h3>Record de WPM : <span class="text-customOrange-500">{{ recordWPM }}</span></h3>
+        <h3>Moyenne de WPM : <span class="text-customOrange-500">{{ moyenneWPM }}</span></h3>
       </div>
       <div class="flex justify-end">
         <button @click="disconectUser" class="btn btn-primary h-max bg-customOrange-500 rounded text-customBlue-900 p-2 hover:bg-customOrange-600">Déconnexion</button>
