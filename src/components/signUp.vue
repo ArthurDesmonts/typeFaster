@@ -18,6 +18,8 @@ const nameInput = ref(null);
 
 async function postSignUp() {
   messageFromServer.value = "";
+  nameInput.value.classList.remove("border");
+  nameInput.value.classList.remove("border-red-500");
   validateUserName(name.value,messageFromServer);
   if (messageFromServer.value !== "") {
     nameInput.value.classList.add("border");
