@@ -3,6 +3,7 @@ import {useRouter} from "vue-router";
 import axios from "axios";
 import {ref} from "vue";
 import {useStore} from "vuex";
+import {validateUserName} from "@/utils/FormPreTraitement.js";
 
 const router = useRouter();
 const store = useStore();
@@ -13,7 +14,18 @@ const confirmedPassword = ref("");
 
 const messageFromServer = ref("");
 
+const nameInput = ref(null);
+
 async function postSignUp() {
+  messageFromServer.value = "";
+  nameInput.value.classList.remove("border");
+  nameInput.value.classList.remove("border-red-500");
+  validateUserName(name.value,messageFromServer);
+  if (messageFromServer.value !== "") {
+    nameInput.value.classList.add("border");
+    nameInput.value.classList.add("border-red-500");
+    return;
+  }
   try {
     if(allParamsPreTraitment()) {
       const response = await axios.post("https://api-rest-text-game.vercel.app/user/signup", {
@@ -50,13 +62,13 @@ function allParamsPreTraitment() {
           <p class="text-center text-white rounded bg-blue-400">{{messageFromServer}}</p>
           <div class="flex flex-col gap-2">
             <div class="mb-3 mt-5">
-              <input type="text" placeholder="Pseudo" class="form-control bg-customBlue-800 rounded font-bold text-center px-2" v-model="name">
+              <input ref="nameInput" type="text" placeholder="Pseudo" class="form-control w-full bg-customBlue-800 rounded font-bold text-center px-2" v-model="name">
             </div>
             <div class="mb-3">
-              <input type="password" placeholder="Mot de passe" class="form-control bg-customBlue-800 rounded font-bold text-center px-2" v-model="password">
+              <input type="password" placeholder="Mot de passe" class="form-control w-full bg-customBlue-800 rounded font-bold text-center px-2" autocomplete="false" v-model="password">
             </div>
             <div class="mb-3">
-              <input type="password" placeholder="Confirmer mot de passe" class="form-control bg-customBlue-800 rounded font-bold text-center px-2" v-model="confirmedPassword">
+              <input type="password" placeholder="Confirmer mot de passe" class="form-control w-full bg-customBlue-800 rounded font-bold text-center px-2" autocomplete="false" v-model="confirmedPassword">
             </div>
             <button type="submit" class="btn btn-primary bg-customOrange-500 rounded text-customBlue-900 p-2">S'inscrire</button>
           </div>
