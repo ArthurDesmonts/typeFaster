@@ -40,3 +40,25 @@ export function validateUserName(userName,alertDiplayObject) {
         return err.message;
     }
 }
+
+const addBorder = (input) => {
+    input.value.classList.add("border");
+    input.value.classList.add("border-red-500");
+};
+
+const removeBorder = (input) => {
+    input.value.classList.remove("border");
+    input.value.classList.remove("border-red-500");
+};
+
+
+export function checkInputs(refInput, inputVal, alertMessageContainer) {
+    alertMessageContainer.value = "";
+    removeBorder(refInput);
+    validateUserName(inputVal,alertMessageContainer);
+    if (alertMessageContainer.value !== "") {
+        addBorder(refInput);
+        return false;
+    }
+    return true;
+}
