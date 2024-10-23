@@ -3,7 +3,7 @@ import {useRouter} from "vue-router";
 import axios from "axios";
 import {ref} from "vue";
 import {useStore} from "vuex";
-import {checkInputs, validateUserName} from "@/utils/FormPreTraitement.js";
+import {checkInputs} from "@/utils/FormPreTraitement.js";
 
 const router = useRouter();
 const store = useStore();
