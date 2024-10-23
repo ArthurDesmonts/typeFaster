@@ -1,6 +1,11 @@
 import axios from "axios";
 
-
+/**
+ * This function handle submit of the user's game results threw API calls
+ * @param userId
+ * @param gameResults
+ * @returns {Promise<void>}
+ */
 export async function insertGameResults(userId,gameResults) {
     try {
         console.log(userId);
