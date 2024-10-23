@@ -40,3 +40,39 @@ export function validateUserName(userName,alertDiplayObject) {
         return err.message;
     }
 }
+
+/**
+ * UI gestion for the input border appearance
+ * @param input
+ */
+const addBorder = (input) => {
+    input.value.classList.add("border");
+    input.value.classList.add("border-red-500");
+};
+
+/**
+ * UI gestion for the input border closure
+ * @param input
+ */
+const removeBorder = (input) => {
+    input.value.classList.remove("border");
+    input.value.classList.remove("border-red-500");
+};
+
+/**
+ * Gesture of the input check vars and display the alert message if necessary
+ * @param refInput
+ * @param inputVal
+ * @param alertMessageContainer
+ * @returns {boolean}
+ */
+export function checkInputs(refInput, inputVal, alertMessageContainer) {
+    alertMessageContainer.value = "";
+    removeBorder(refInput);
+    validateUserName(inputVal,alertMessageContainer);
+    if (alertMessageContainer.value !== "") {
+        addBorder(refInput);
+        return false;
+    }
+    return true;
+}
