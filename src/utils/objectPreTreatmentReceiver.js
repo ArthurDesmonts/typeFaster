@@ -1,5 +1,5 @@
 /**
- * receiverText
+ * Getter for the text of the message
  * @param data
  * @returns {*}
  */
@@ -7,7 +7,8 @@ export function receiverText(data) {
   return data.text.text;
 }
 
-/**receiverIDText
+/**
+ * Getter for the id of the message
  * @param data
  * @returns {*}
  */
