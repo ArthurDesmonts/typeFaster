@@ -11,6 +11,8 @@ const store = useStore();
 const name = ref("");
 const password = ref("");
 
+const serverResponse = ref(false);
+
 const nameInput = ref(null);
 const passwordInput = ref(null);
 
@@ -22,12 +24,14 @@ function allParamsCheck() {
 }
 
 async function postLogin() {
+  serverResponse.value = true;
   if(!allParamsCheck()){ return; }
   try {
     const response = await axios.post("https://api-rest-text-game.vercel.app/user/login", {
       name: name.value,
       password: password.value
     });
+    serverResponse.value = false;
     console.log(response.data);
     await store.dispatch('updateUserId', response.data.userId);
     await router.push('/typeFaster/profil');
@@ -58,8 +62,8 @@ async function postLogin() {
               <input type="password" placeholder="Mot de passe" ref="passwordInput"
                      class="form-control bg-customBlue-800 rounded font-bold text-center w-full" v-model="password">
             </div>
-            <button type="submit" class="btn btn-primary bg-customOrange-500 rounded text-customBlue-900 p-2">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+            <button type="submit" class="btn btn-primary bg-customOrange-500 rounded text-customBlue-900 p-2 flex items-center gap-x-2 justify-center">
+              <svg v-if="serverResponse" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="w-6 h-6">
                 <radialGradient id="a10" cx=".66" fx=".66" cy=".3125" fy=".3125" gradientTransform="scale(1.5)">
                   <stop offset="0" stop-color="#000000"></stop>
                   <stop offset=".3" stop-color="#000000" stop-opacity=".9"></stop>
