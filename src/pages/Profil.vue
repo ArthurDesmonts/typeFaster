@@ -15,6 +15,8 @@ const router = useRouter();
 const route = useRoute();
 const store = useStore();
 
+const serverResponse = ref(false);
+
 const setViewSignIn = () => {
   router.push('/typeFaster/signIn');
 };
@@ -31,6 +33,7 @@ const disconectUser = () => {
 async function fetchUserData() {
   try {
     if (store.state.userId !== null) {
+      serverResponse.value = true;
       const response = await axios.get(`https://api-rest-text-game.vercel.app/user/userInfo?userId=${store.state.userId}`);
       pseudo.value = response.data.name;
       dateInscription.value = format(new Date(response.data.creationDate),'dd / MM / yyyy');
@@ -76,16 +79,29 @@ watch(() => store.state.userId, () => {
       </h1>
     </div>
     <div v-if="store.state.connected" class="grid grid-cols-3 gap-4 bg-gray-900 rounded p-4 border-2 border-customOrange-500">
-      <div class="flex flex-col justify-between">
+      <div v-if="serverResponse" class="flex justify-center items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="mx-auto" width="100" height="100">
+          <circle fill="#FF7637" stroke="#FF7637" stroke-width="6" r="15" cx="40" cy="65">
+            <animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.4"></animate>
+          </circle>
+          <circle fill="#FF7637" stroke="#FF7637" stroke-width="6" r="15" cx="100" cy="65">
+            <animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.2"></animate>
+          </circle>
+          <circle fill="#FF7637" stroke="#FF7637" stroke-width="6" r="15" cx="160" cy="65">
+            <animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="0"></animate>
+          </circle>
+        </svg>
+      </div>
+      <div v-if="!serverResponse" class="flex flex-col justify-between">
         <h1 class="font-bold text-customYellow-600 text-center">{{ pseudo }}</h1>
         <h3 class="text-center">Date d'inscription : <span class="text-customOrange-500">{{ dateInscription }}</span></h3>
       </div>
-      <div class="flex flex-col">
+      <div v-if="!serverResponse" class="flex flex-col">
         <h3>Classement : <span class="text-customOrange-500">{{ classement }}</span></h3>
         <h3>Record de WPM : <span class="text-customOrange-500">{{ recordWPM }}</span></h3>
         <h3>Moyenne de WPM : <span class="text-customOrange-500">{{ moyenneWPM }}</span></h3>
       </div>
-      <div class="flex justify-end">
+      <div v-if="!serverResponse" class="flex justify-end">
         <button @click="disconectUser" class="btn btn-primary h-max bg-customOrange-500 rounded text-customBlue-900 p-2 hover:bg-customOrange-600">Déconnexion</button>
       </div>
     </div>
