@@ -7,6 +7,8 @@ import { countDownFrom, resetCountDown } from "@/utils/TimeHandler.js";
 import { insertGameResults } from "@/utils/gameAPICalls.js";
 import { useStore } from "vuex";
 
+const serverResponse = ref(false);
+
 let rawText = ref("");
 let textDisplayed = ref("");
 const id = ref(0);
@@ -30,8 +32,10 @@ const store = useStore();
 
 // Function to get text from server
 async function getTextFromServer() {
+  serverResponse.value = true;
   try {
     const response = await axios.get("https://api-rest-text-game.vercel.app/get/getText");
+    serverResponse.value = false;
     rawText.value = receiverText(response.data);
     id.value = receiverIDText(response.data);
   } catch (error) {
@@ -194,8 +198,25 @@ onUnmounted(() => {
               @click="updateText">&#x21bb;
       </button>
       <div
-          class="rounded rounded-l-none bg-gray-950 max-w-xl min-w-[600px] min-h-[250px] max-h-[250px] overflow-hidden">
-        <p v-html="highlightCharacters(textArray, currentWordIndex, input)"
+          class="rounded rounded-l-none bg-gray-950 max-w-xl min-w-[600px] min-h-[250px] max-h-[250px] overflow-hidden ">
+        <svg v-if="serverResponse" class="flex items-center justify-center h-full w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+          <circle fill="#FFFAFD" stroke="#FFFAFD" stroke-width="15" r="15" cx="35" cy="100">
+            <animate attributeName="cx" calcMode="spline" dur="2" values="35;165;165;35;35" keySplines="0 .1 .5 1;0 .1 .5 1;0 .1 .5 1;0 .1 .5 1" repeatCount="indefinite" begin="0"></animate>
+          </circle>
+          <circle fill="#FFFAFD" stroke="#FFFAFD" stroke-width="15" opacity=".8" r="15" cx="35" cy="100">
+            <animate attributeName="cx" calcMode="spline" dur="2" values="35;165;165;35;35" keySplines="0 .1 .5 1;0 .1 .5 1;0 .1 .5 1;0 .1 .5 1" repeatCount="indefinite" begin="0.05"></animate>
+          </circle>
+          <circle fill="#FFFAFD" stroke="#FFFAFD" stroke-width="15" opacity=".6" r="15" cx="35" cy="100">
+            <animate attributeName="cx" calcMode="spline" dur="2" values="35;165;165;35;35" keySplines="0 .1 .5 1;0 .1 .5 1;0 .1 .5 1;0 .1 .5 1" repeatCount="indefinite" begin=".1"></animate>
+          </circle>
+          <circle fill="#FFFAFD" stroke="#FFFAFD" stroke-width="15" opacity=".4" r="15" cx="35" cy="100">
+            <animate attributeName="cx" calcMode="spline" dur="2" values="35;165;165;35;35" keySplines="0 .1 .5 1;0 .1 .5 1;0 .1 .5 1;0 .1 .5 1" repeatCount="indefinite" begin=".15"></animate>
+          </circle>
+          <circle fill="#FFFAFD" stroke="#FFFAFD" stroke-width="15" opacity=".2" r="15" cx="35" cy="100">
+            <animate attributeName="cx" calcMode="spline" dur="2" values="35;165;165;35;35" keySplines="0 .1 .5 1;0 .1 .5 1;0 .1 .5 1;0 .1 .5 1" repeatCount="indefinite" begin=".2"></animate>
+          </circle>
+        </svg>
+        <p v-if="!serverResponse" v-html="highlightCharacters(textArray, currentWordIndex, input)"
            class="font-mono text-customBlue-100 text-justify p-2"></p>
       </div>
     </div>
