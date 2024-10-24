@@ -34,7 +34,11 @@ async function fetchUserData() {
   try {
     if (store.state.userId !== null) {
       serverResponse.value = true;
+
       const response = await axios.get(`https://api-rest-text-game.vercel.app/user/userInfo?userId=${store.state.userId}`);
+
+      serverResponse.value = false;
+
       pseudo.value = response.data.name;
       dateInscription.value = format(new Date(response.data.creationDate),'dd / MM / yyyy');
       classement.value = response.data.classement;
@@ -79,7 +83,7 @@ watch(() => store.state.userId, () => {
       </h1>
     </div>
     <div v-if="store.state.connected" class="grid grid-cols-3 gap-4 bg-gray-900 rounded p-4 border-2 border-customOrange-500">
-      <div v-if="serverResponse" class="flex justify-center items-center">
+      <div v-if="serverResponse" class="grid col-span-3">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="mx-auto" width="100" height="100">
           <circle fill="#FF7637" stroke="#FF7637" stroke-width="6" r="15" cx="40" cy="65">
             <animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.4"></animate>
