@@ -20,6 +20,7 @@ const typedWords = ref([]);
 const typedWordsLenght = ref(0);
 
 const timer = ref(30);
+const timerScale = ref(30);
 const wpm = ref(0);
 
 const input = ref("");
@@ -68,11 +69,15 @@ async function updateText() {
 
   window.addEventListener("keydown", handleSpaceBarDown);
   window.addEventListener("keydown", handleStartGame, { once: true });
-  timer.value = 30;
+  timer.value = timerScale.value;
 
   // Remove the focus on the button
   updateButton.value.blur();
 }
+
+const updateTimer = () => {
+  timer.value = timerScale.value;
+};
 
 // Function to handle typing
 const typing = () => {
@@ -89,6 +94,7 @@ const typing = () => {
 
 // Function to handle countdown
 const countDown = () => {
+  document.querySelector("select").disabled = true;
   countDownFrom(timer.value, (remainingSeconds) => {
     timer.value = remainingSeconds;
     if (remainingSeconds === 0) {
@@ -108,6 +114,7 @@ function blockTypingSignal() {
   window.removeEventListener("keydown", handleStartGame);
   wpm.value = countWpm(typedWords.value, input.value);
   summary.value = true;
+  document.querySelector("select").disabled = false;
   if (store.state.userId !== null) {
     insertGameResults(store.state.userId, wpm.value);
   } else {
@@ -194,9 +201,16 @@ onUnmounted(() => {
   <div class="flex flex-col justify-center">
     <p class="text-2xl p-4 my-4 rounded text-center text-customBlue-100">{{ timer }} s</p>
     <div class="flex justify-center w-full">
-      <button ref="updateButton" type="button" class="bg-amber-400 text-black font-bold rounded px-2 rounded-r-none"
-              @click="updateText">&#x21bb;
-      </button>
+      <div class="flex flex-col gap-10 bg-amber-400 text-black font-bold rounded px-2 rounded-r-none">
+        <button ref="updateButton" type="button" class="p-2 rounded-l text-black font-bold"
+                @click="updateText">&#x21bb;
+        </button>
+        <select v-model="timerScale" class="bg-amber-400 text-black font-bold rounded px-2 rounded-l-none" @change="updateTimer" >
+          <option value="30">30 s</option>
+          <option value="60">60 s</option>
+          <option value="90">90 s</option>
+        </select>
+      </div>
       <div
           class="rounded rounded-l-none bg-gray-950 max-w-xl min-w-[600px] min-h-[250px] max-h-[250px] overflow-hidden ">
         <svg v-if="serverResponse" class="flex items-center justify-center h-full w-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
