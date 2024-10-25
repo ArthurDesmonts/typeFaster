@@ -59,6 +59,7 @@ const resetVariables = () => {
 
 // Function to update the displayed text
 async function updateText() {
+  document.querySelector("select").disabled = false;
   await getTextFromServer();
   if (rawText.value) {
     textDisplayed.value = initializer(rawText.value, 300);
@@ -108,11 +109,11 @@ function blockTypingSignal() {
   if (isBlocked.value) return;
   isBlocked.value = true;
 
-  input.value = "";
   window.removeEventListener("keydown", handleTypingLetterKey);
   window.removeEventListener("keydown", handleSpaceBarDown);
   window.removeEventListener("keydown", handleStartGame);
-  wpm.value = countWpm(typedWords.value, input.value);
+  wpm.value = countWpm(typedWords.value, input.value, currentWordToType.value, timerScale.value);
+  input.value = "";
   summary.value = true;
   document.querySelector("select").disabled = false;
   if (store.state.userId !== null) {

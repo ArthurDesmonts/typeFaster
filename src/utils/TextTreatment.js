@@ -69,11 +69,29 @@ function cleanString(text) {
  * This function receives an array of words and an additional character count and returns the number of words per minute.
  * @param array
  * @param additionalChar
+ * @param lastWord
+ * @param timeScale
  * @returns {number}
  */
-function countWpm(array, additionalChar){
-    return Math.round((array.join('').length + additionalChar)/4.7 * 2);
+function countWpm(array, additionalChar, lastWord, timeScale){
+    const additionalCharCount = checkAdditionalChar(additionalChar, lastWord);
+    return Math.round((array.join('').length + additionalCharCount)/4.7 * 60 / timeScale);
 }
 
+/**
+ * This function receives an additional character and a word and returns the number of characters that are
+ * @param additionalChar
+ * @param lastWord
+ * @returns {number}
+ */
+function checkAdditionalChar(additionalChar, lastWord){
+    let count = 0;
+    for (let i = 0; i < lastWord.length; i++){
+        if (lastWord[i] === additionalChar[i]){
+            count++;
+        }
+    }
+    return count;
+}
 
 export { initializer, textToTab, pushWord, DisplayText, filterText, cleanString, countWpm };
