@@ -261,7 +261,7 @@ onUnmounted(() => {
   content: "";
   display: inline-block;
   width: 1px;
-  height: 1em;
+  height: 1.2em;
   background-color: white;
   animation: blink 1s step-end infinite;
   vertical-align: middle;
