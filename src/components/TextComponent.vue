@@ -137,7 +137,7 @@ function highlightCharacters(array, currentIndex, input) {
           } else {
             highlightedWord += `<span class="wrong-char">${word[i]}</span>`;
           }
-        } else if (i === input.length) {
+        } else if (i === input.length && word[i-1] !== ' ') {
           highlightedWord += `<span class="cursor">${word[i]}</span>`;
         } else {
           highlightedWord += word[i];
