@@ -137,6 +137,8 @@ function highlightCharacters(array, currentIndex, input) {
           } else {
             highlightedWord += `<span class="wrong-char">${word[i]}</span>`;
           }
+        } else if (i === input.length) {
+          highlightedWord += `<span class="cursor">${word[i]}</span>`;
         } else {
           highlightedWord += word[i];
         }
@@ -253,5 +255,24 @@ onUnmounted(() => {
 
 .underline {
   text-decoration: underline;
+}
+
+.cursor::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 1em;
+  background-color: white;
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink {
+  from, to {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 </style>
