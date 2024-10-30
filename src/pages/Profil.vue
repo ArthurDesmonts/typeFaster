@@ -110,8 +110,21 @@ watch(() => store.state.userId, () => {
         <button @click="disconectUser" class="btn btn-primary h-max bg-customOrange-500 rounded text-customBlue-900 p-2 hover:bg-customOrange-600">Déconnexion</button>
       </div>
     </div>
-    <div v-if="store.state.connected" class="grid grid-cols-3 gap-4 bg-gray-900 rounded p-4 border-2 border-customOrange-500 mt-5">
-      <UserPerformanceChart></UserPerformanceChart>
+    <div v-if="store.state.connected" class="flex justify-center w-full bg-gray-900 rounded p-4 border-2 border-customOrange-500 mt-5">
+      <div v-if="serverResponse" class="grid col-span-3">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="mx-auto" width="100" height="100">
+          <circle fill="#FF7637" stroke="#FF7637" stroke-width="6" r="15" cx="40" cy="65">
+            <animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.4"></animate>
+          </circle>
+          <circle fill="#FF7637" stroke="#FF7637" stroke-width="6" r="15" cx="100" cy="65">
+            <animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="-.2"></animate>
+          </circle>
+          <circle fill="#FF7637" stroke="#FF7637" stroke-width="6" r="15" cx="160" cy="65">
+            <animate attributeName="cy" calcMode="spline" dur="2" values="65;135;65;" keySplines=".5 0 .5 1;.5 0 .5 1" repeatCount="indefinite" begin="0"></animate>
+          </circle>
+        </svg>
+      </div>
+      <UserPerformanceChart v-if="!serverResponse"></UserPerformanceChart>
     </div>
     <div id="connectionChoice" v-else class="w-full flex justify-center">
       <div class="flex flex-col gap-6 w-fit mt-20 rounded text-customOrange-500 bg-customBlue-900 p-6">
