@@ -109,6 +109,9 @@ watch(() => store.state.userId, () => {
         <button @click="disconectUser" class="btn btn-primary h-max bg-customOrange-500 rounded text-customBlue-900 p-2 hover:bg-customOrange-600">Déconnexion</button>
       </div>
     </div>
+    <div v-if="store.state.connected" class="grid grid-cols-3 gap-4 bg-gray-900 rounded p-4 border-2 border-customOrange-500">
+
+    </div>
     <div id="connectionChoice" v-else class="w-full flex justify-center">
       <div class="flex flex-col gap-6 w-fit mt-20 rounded text-customOrange-500 bg-customBlue-900 p-6">
         <h3 class="text-center font-extrabold">Veillez vous connecter</h3>
