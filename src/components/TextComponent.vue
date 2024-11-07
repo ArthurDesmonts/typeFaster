@@ -236,7 +236,7 @@ onUnmounted(() => {
       </div>
     </div>
     <div class="flex justify-center w-full">
-      <p class="text-2xl text-customBlue-100 mx-4">{{ typedWordsLenght }} words</p>
+      <p class="text-2xl text-customBlue-100 mx-4">{{ typedWordsLenght }} mots</p>
       <p v-if="summary" class="text-2xl text-customBlue-100 mx-4">{{ wpm }} wpm</p>
     </div>
   </div>
