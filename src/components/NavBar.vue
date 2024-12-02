@@ -9,7 +9,7 @@ const toggleMenu = () => {
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen w-auto max-w-max drop-shadow-4xl border-gray-500 bg-customBlue-900 overflow-hidden break-words">
+  <div class="flex flex-col min-h-screen w-auto max-w-max drop-shadow-4xl border-gray-500 bg-customBlue-900 break-words">
     <button @click="toggleMenu" class="self-end m-4 text-customYellow-500">
       <span v-if="isMenuVisible" class="font-bold text-2xl mx-auto">◀</span>
       <span v-else class="font-bold text-4xl">☰</span>
@@ -34,11 +34,6 @@ const toggleMenu = () => {
            before:absolute before:left-0 before:bottom-0 before:h-1 before:w-full before:bg-yellow-300 before:transform
            before:scale-x-0 hover:before:scale-x-125 before:origin-left before:transition-transform before:duration-300">Classement</span>
         </RouterLink>
-<!--        <RouterLink to="/typeFaster/message" class="flex justify-end w-full">-->
-<!--          <span class="relative font-mono text-customYellow-500 pr-6 text-xl font-extrabold text-center hover:text-yellow-300-->
-<!--           before:absolute before:left-0 before:bottom-0 before:h-1 before:w-full before:bg-yellow-300 before:transform-->
-<!--           before:scale-x-0 hover:before:scale-x-125 before:origin-left before:transition-transform before:duration-300">Messagerie</span>-->
-<!--        </RouterLink>-->
         <RouterLink to="/typeFaster/profil" class="flex justify-end w-full">
           <span class="relative font-mono text-customYellow-500 pr-6 text-xl font-extrabold text-center hover:text-yellow-300
            before:absolute before:left-0 before:bottom-0 before:h-1 before:w-full before:bg-yellow-300 before:transform
