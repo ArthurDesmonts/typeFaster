@@ -9,7 +9,7 @@ const toggleMenu = () => {
 </script>
 
 <template>
-  <div class="flex flex-col min-h-screen w-auto max-w-max drop-shadow-4xl border-gray-500 bg-customBlue-900 break-words">
+  <div class="flex flex-col min-h-screen w-auto max-w-max drop-shadow-4xl border-gray-500 bg-customBlue-900 break-words mr-4">
     <button @click="toggleMenu" class="self-end m-4 text-customYellow-500">
       <span v-if="isMenuVisible" class="font-bold text-2xl mx-auto">◀</span>
       <span v-else class="font-bold text-4xl">☰</span>
